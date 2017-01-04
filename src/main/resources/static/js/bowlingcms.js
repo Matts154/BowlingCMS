@@ -22,7 +22,7 @@ app.config(["$routeProvider", "$locationProvider", function ($routeProvider, $lo
                 })
                 .when('/viewer', {
                     templateUrl: 'viewer.html',
-                    controller: 'SettingsController'
+                    controller: 'ViewerController'
                 })
                 .when('/settings', {
                     templateUrl: 'settings.html',
@@ -66,7 +66,6 @@ app.controller('MainController', ['$rootScope', '$scope', '$http', '$log', funct
         // Watchers for nav
 
         // JS Objects for viewer controller config
-        $rootScope.config = eventConfig;
         var eventConfig = {
             processScores: function (s) {
                 var event = _.find($scope.events, function (e) {
@@ -114,14 +113,15 @@ app.controller('MainController', ['$rootScope', '$scope', '$http', '$log', funct
                 }
             }
         };
+        $rootScope.config = eventConfig;
     }
 ]);
 
 app.controller('ViewerController', ['$rootScope', '$scope', '$http', '$log', function ($rootScope, $scope, $http, $log) {
         $scope.selectedItem = null;
         $scope.items = $rootScope.config.dropdown.items;
-        $scope.dropdown.href = $rootScope.dropdown.href;
-        $scope.dropdown.label = $rootScope.dropdown.label;
+        $scope.dropdown.href = $rootScope.config.dropdown.href;
+        $scope.dropdown.label = $rootScope.config.dropdown.label;
         $scope.scores = {};
 
         // When the dropdown selection is changed, repopulate table with bowling scores
