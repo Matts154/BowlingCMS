@@ -1,0 +1,30 @@
+<div class="container" id="viewer">
+    <select name="people" ng-model="selectedItem" ng-options="{{ dropdown.href }} as {{ dropdown.label }} for item in items">
+        <option value="">Select one</option>
+    </select>
+    <br />
+    <a href="{{ selectedItem }}">{{ selectedItem }}</a>
+    <div ng-show="scores">
+        <div id="chart"></div>
+        <table id="raw-scores" class="table table-hover" ng-if="scores != null">
+            <thead>
+                <tr>
+                    <td>Event</td>
+                    <td>Date</td>
+                    <td>Game #1</td>
+                    <td>Game #2</td>
+                    <td>Game #3</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="series in scores | orderBy: '-timestamp'">
+                    <td>{{ findEvent(series._links.event.href).name}}</td>
+                    <td>{{ series.date }}</td>
+                    <td>{{ series.game1}}</td>
+                    <td>{{ series.game2}}</td>
+                    <td>{{ series.game3}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

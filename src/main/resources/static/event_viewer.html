@@ -1,0 +1,30 @@
+<div class="container">
+    <select name="events" ng-model="selectedEvent" ng-options="item._links.event.href as item.name for item in events">
+        <option value="">Select one</option>
+    </select>
+    <br />
+    <a href="{{ selectedEvent }}">{{ selectedEvent }}</a>
+    <div ng-show="{{ scores != {} }}">
+        <div id="chart"></div>
+        <table id="raw-scores" class="table table-hover">
+            <thead>
+                <tr>
+                    <td>Bowler</td>
+                    <td>Game #1</td>
+                    <td>Game #2</td>
+                    <td>Game #3</td>
+                    <td>Date</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="series in scores">
+                    <td>{{ findPerson(series._links.person.href).firstName + " " + findPerson(series._links.person.href).lastName}}</td>
+                    <td>{{ series.game1 }}</td>
+                    <td>{{ series.game2 }}</td>
+                    <td>{{ series.game3 }}</td>
+                    <td>{{ series.date }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
